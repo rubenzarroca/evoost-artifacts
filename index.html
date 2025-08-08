@@ -3,10 +3,317 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Dashboard</title>
+    <title>Arquitectura Plataforma Evoost</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        
+        .title {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+        }
+        
+        .architecture-diagram {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .layer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 15px 0;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .layer:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        
+        .layer-1 { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); }
+        .layer-2 { background: linear-gradient(135deg, #16a085 0%, #27ae60 100%); }
+        .layer-3 { background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); }
+        .layer-4 { background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%); }
+        
+        .layer-header {
+            padding: 20px 25px;
+            color: white;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .layer-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .layer-subtitle {
+            font-size: 13px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .layer-content {
+            padding: 20px 25px;
+            background: rgba(255,255,255,0.95);
+            color: #2c3e50;
+        }
+        
+        .components {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .component {
+            background: #f8f9fa;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border-left: 4px solid currentColor;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .component.primary { border-left-color: #3498db; }
+        .component.secondary { border-left-color: #27ae60; }
+        .component.tertiary { border-left-color: #f39c12; }
+        .component.quaternary { border-left-color: #8e44ad; }
+        
+        .flow-arrows {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 24px;
+            margin: 10px 0;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        
+        .integration-box {
+            margin-top: 30px;
+            background: linear-gradient(135deg, #ecf0f1 0%, #bdc3c7 100%);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .integration-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .integration-items {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .integration-item {
+            background: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 12px;
+            color: #34495e;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            font-weight: 500;
+        }
+        
+        .icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: currentColor;
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .components {
+                grid-template-columns: 1fr;
+            }
+            .integration-items {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Hola desde GitHub Pages</h1>
-    <p>Esto se verá en Notion</p>
+    <div class="container">
+        <div class="title">
+            Arquitectura Técnica - Plataforma Evoost
+        </div>
+        
+        <div class="architecture-diagram">
+            <!-- Capa 1: Presentación -->
+            <div class="layer layer-1">
+                <div class="layer-header">
+                    <div class="layer-title">
+                        <span class="icon"></span>
+                        Capa de Presentación y Experiencia Digital
+                    </div>
+                    <div class="layer-subtitle">Interfaces de usuario y gestión de contenidos</div>
+                </div>
+                <div class="layer-content">
+                    <div class="components">
+                        <div class="component primary">
+                            <strong>Generador de Landing Pages</strong><br>
+                            Creación dinámica de sitios promocionales personalizados
+                        </div>
+                        <div class="component primary">
+                            <strong>Portal del Promotor</strong><br>
+                            Dashboards interactivos y herramientas de gestión
+                        </div>
+                        <div class="component primary">
+                            <strong>Configurador de Viviendas</strong><br>
+                            Herramienta interactiva de personalización
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flow-arrows">↓</div>
+            
+            <!-- Capa 2: CDP -->
+            <div class="layer layer-2">
+                <div class="layer-header">
+                    <div class="layer-title">
+                        <span class="icon"></span>
+                        Capa de Gestión de Datos (CDP)
+                    </div>
+                    <div class="layer-subtitle">Centralización y enriquecimiento de datos de clientes</div>
+                </div>
+                <div class="layer-content">
+                    <div class="components">
+                        <div class="component secondary">
+                            <strong>Captura de Datos</strong><br>
+                            Unificación desde múltiples canales de interacción
+                        </div>
+                        <div class="component secondary">
+                            <strong>Perfilado Emocional</strong><br>
+                            Cualificación mediante modelo DISC
+                        </div>
+                        <div class="component secondary">
+                            <strong>Segmentación Inteligente</strong><br>
+                            Agrupación automática multidimensional
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flow-arrows">↓</div>
+            
+            <!-- Capa 3: Automatización -->
+            <div class="layer layer-3">
+                <div class="layer-header">
+                    <div class="layer-title">
+                        <span class="icon"></span>
+                        Capa de Automatización y Orquestación
+                    </div>
+                    <div class="layer-subtitle">Marketing automation y comunicación multicanal</div>
+                </div>
+                <div class="layer-content">
+                    <div class="components">
+                        <div class="component tertiary">
+                            <strong>Orquestador de Campañas</strong><br>
+                            Gestión multicanal personalizada
+                        </div>
+                        <div class="component tertiary">
+                            <strong>Motor de Nurturing</strong><br>
+                            Flujos automatizados de acompañamiento
+                        </div>
+                        <div class="component tertiary">
+                            <strong>Scoring Predictivo</strong><br>
+                            Evaluación automática de probabilidad de conversión
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flow-arrows">↓</div>
+            
+            <!-- Capa 4: CRM -->
+            <div class="layer layer-4">
+                <div class="layer-header">
+                    <div class="layer-title">
+                        <span class="icon"></span>
+                        Capa de Inteligencia Comercial
+                    </div>
+                    <div class="layer-subtitle">CRM y análisis de performance comercial</div>
+                </div>
+                <div class="layer-content">
+                    <div class="components">
+                        <div class="component quaternary">
+                            <strong>Gestión de Leads</strong><br>
+                            CRM integrado con trazabilidad completa
+                        </div>
+                        <div class="component quaternary">
+                            <strong>Business Intelligence</strong><br>
+                            Dashboards y reporting automatizado
+                        </div>
+                        <div class="component quaternary">
+                            <strong>Análisis Predictivo</strong><br>
+                            Insights comportamentales y de mercado
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Integraciones -->
+            <div class="integration-box">
+                <div class="integration-title">Integraciones Principales</div>
+                <div class="integration-items">
+                    <div class="integration-item">Marketing Automation</div>
+                    <div class="integration-item">Plataformas CRM</div>
+                    <div class="integration-item">APIs Publicitarias</div>
+                    <div class="integration-item">WhatsApp Business</div>
+                    <div class="integration-item">Sistemas de Pago</div>
+                    <div class="integration-item">Analytics & BI</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Agregar interactividad simple
+        document.querySelectorAll('.layer').forEach(layer => {
+            layer.addEventListener('click', function() {
+                this.style.transform = this.style.transform === 'scale(1.02)' ? 'scale(1)' : 'scale(1.02)';
+            });
+        });
+    </script>
 </body>
 </html>
