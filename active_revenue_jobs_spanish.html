@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active Revenue Squad - Definición de Puestos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            padding: 2rem;
+            color: #1f4e79;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1f4e79;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #64748b;
+            font-weight: 400;
+        }
+
+        .jobs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2rem;
+        }
+
+        .job-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(31, 78, 121, 0.1);
+            border: 2px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .job-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .job-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(31, 78, 121, 0.2);
+            border-color: #2e75b6;
+        }
+
+        /* Different colors for each role */
+        .job-card:nth-child(1)::before { background: linear-gradient(90deg, #1f4e79, #2e75b6); }
+        .job-card:nth-child(2)::before { background: linear-gradient(90deg, #2e75b6, #4a90d9); }
+        .job-card:nth-child(3)::before { background: linear-gradient(90deg, #059669, #10b981); }
+        .job-card:nth-child(4)::before { background: linear-gradient(90deg, #dc2626, #ef4444); }
+        .job-card:nth-child(5)::before { background: linear-gradient(90deg, #7c3aed, #8b5cf6); }
+        .job-card:nth-child(6)::before { background: linear-gradient(90deg, #ea580c, #f97316); }
+        .job-card:nth-child(7)::before { background: linear-gradient(90deg, #0891b2, #06b6d4); }
+        .job-card:nth-child(8)::before { background: linear-gradient(90deg, #059669, #10b981); }
+
+        .job-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #1f4e79;
+        }
+
+        .job-level {
+            font-size: 0.9rem;
+            color: #64748b;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            padding: 0.25rem 0.75rem;
+            background: #f1f5f9;
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        .section {
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1f4e79;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-content {
+            font-size: 0.9rem;
+            color: #475569;
+        }
+
+        .responsibilities-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .responsibilities-list li {
+            padding: 0.25rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .responsibilities-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0.5rem;
+            color: #2e75b6;
+            font-weight: bold;
+        }
+
+        .skills-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .skill-tag {
+            background: #e2e8f0;
+            color: #475569;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .metrics-box {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 0.75rem;
+            border-left: 3px solid #2e75b6;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .metric-item {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1f4e79;
+        }
+
+        .metric-label {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        @media (max-width: 768px) {
+            .jobs-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .job-card {
+                padding: 1.5rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            body {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Active Revenue Squad</h1>
+            <p>Definición de puestos y responsabilidades del equipo</p>
+        </div>
+
+        <div class="jobs-grid">
+            <!-- CMO/Marketing Strategy Lead -->
+            <div class="job-card">
+                <div class="job-title">CMO/Marketing Strategy Lead</div>
+                <div class="job-level">Nivel: Head/Director</div>
+                
+                <div class="section">
+                    <div class="section-title">🎯 Responsabilidad Principal</div>
+                    <div class="section-content">Definición estratégica de marketing, segmentación LMP y planificación integral de campañas por proyecto.</div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📋 Principales Funciones</div>
+                    <ul class="responsibilities-list">
+                        <li>Desarrollo de segmentación emocional y LMP por proyecto</li>
+                        <li>Creación de planes de marketing integrales con ROI definido</li>
+                        <li>Análisis de mercado mediante IA y competitive intelligence</li>
+                        <li>Definición de presupuestos y KPIs por canal</li>
+                        <li>Framework de medición y optimización continua</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">🛠️ Skills Requeridas</div>
+                    <div class="skills-tags">
+                        <span class="skill-tag">Marketing Estratégico</span>
+                        <span class="skill-tag">PropTech</span>
+                        <span class="skill-tag">IA/OpenAI</span>
+                        <span class="skill-tag">Análisis Mercado</span>
+                        <span class="skill-tag">ROI/KPIs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Operations Project Manager -->
+            <div class="job-card">
+                <div class="job-title">Operations Project Manager</div>
+                <div class="job-level">Nivel: Senior/Lead</div>
+                
+                <div class="section">
+                    <div class="section-title">🎯 Responsabilidad Principal</div>
+                    <div class="section-content">Orquestación end-to-end de 45+ servicios en 29 días, con visibilidad 360° y accountability total del proyecto.</div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📋 Principales Funciones</div>
+                    <ul class="responsibilities-list">
+                        <li>Gestión integral delivery 5 fases en timeline crítico</li>
+                        <li>Coordinación cross-funcional y gestión dependencias</li>
+                        <li>Control de calidad y compliance con estándares</li>
+                        <li>Comunicación cliente y escalation management</li>
+                        <li>Tracking KPIs y reporting de performance</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">🛠️ Skills Requeridas</div>
+                    <div class="skills-tags">
+                        <span class="skill-tag">Project Management</span>
+                        <span class="skill-tag">Notion</span>
+                        <span class="skill-tag">MarTech</span>
+                        <span class="skill-tag">Cliente B2B</span>
+                        <span class="skill-tag">QA/QC</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Operations Specialist -->
+            <div class="job-card">
+                <div class="job-title">Technical Operations Specialist</div>
+                <div class="job-level">Nivel: Senior</div>
+                
+                <div class="section">
+                    <div class="section-title">🎯 Responsabilidad Principal</div>
+                    <div class="section-content">Gestión completa del tech stack, entrenamiento IA y integraciones. Backup técnico del PM cuando sea necesario.</div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📋 Principales Funciones</div>
+                    <ul class="responsibilities-list">
+                        <li>Mantenimiento y optimización de plataformas técnicas</li>
+                        <li>Entrenamiento y fine-tuning de asistentes IA (Chat/WhatsApp/Voice)</li>
+                        <li>Desarrollo integraciones CRM/ERP y flujos de datos</li>
+                        <li>Troubleshooting técnico y optimización performance</li>
+                        <li>Backup PM y documentación técnica</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">🛠️ Skills Requeridas</div>
+                    <div class="skills-tags">
+                        <span class="skill-tag">OpenAI/Claude</span>
+                        <span class="skill-tag">APIs/Integraciones</span>
+                        <span class="skill-tag">WordPress</span>
+                        <span class="skill-tag">CRM/ERP</span>
+                        <span class="skill-tag">Problem Solving</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Creative Production Specialist -->
+            <div class="job-card">
+                <div class="job-title">Creative Production Specialist</div>
+                <div class="job-level">Nivel: Senior</div>
+                
+                <div class="section">
+                    <div class="section-title">🎯 Responsabilidad Principal</div>
+                    <div class="section-content">Ejecución creativa end-to-end: 40+ assets visuales, videos, copy y mantenimiento de consistencia de marca por proyecto.</div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📋 Principales Funciones</div>
+                    <ul class="responsibilities-list">
+                        <li>Producción renders interiores/exteriores (20+ por proyecto)</li>
+                        <li>Creación de videos (trailers, completos, promocionales)</li>
+                        <li>Desarrollo de copy persuasivo y storytelling por LMP</li>
+                        <li>Gestión de consistency visual y messaging</li>
+                        <li>Creatividades para paid media (3 por LMP)</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">🛠️ Skills Requeridas</div>
+                    <div class="skills-tags">
+                        <span class="skill-tag">Adobe Creative</span>
+                        <span class="skill-tag">3D/Renders</span>
+                        <span class="skill-tag">Video/Edición</span>
+                        <span class="skill-tag">Copywriting</span>
+                        <span class="skill-tag">Brand Management</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quality Assurance Manager -->
+            <div class="job-card">
+                <div class="job-title">Quality Assurance Manager</div>
+                <div class="job-level">Nivel: Senior/Lead</div>
+                
+                <div class="section">
+                    <div class="section-title">🎯 Responsabilidad Principal</div>
+                    <div class="section-content">Definición y mantenimiento de estándares de calidad del sector inmobiliario. Creación de playbooks y aseguramiento de compliance con expectativas de promotores.</div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📋 Principales Funciones</div>
+                    <ul class="responsibilities-list">
+                        <li>Definición de estándares de calidad objetivos por vertical</li>
+                        <li>Creación de playbooks y checklists de QA para cada fase</li>
+                        <li>Auditoría de deliverables pre-client validation</li>
+                        <li>Training del equipo en standards de calidad del sector</li>
+                        <li>Continuous improvement de procesos basado en feedback</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">🛠️ Skills Requeridas</div>
+                    <div class="skills-tags">
+                        <span class="skill-tag">Real Estate</span>
+                        <span class="skill-tag">Promotores</span>
+                        <span class="skill-tag">QA/QC Standards</span>
+                        <span class="skill-tag">Playbook Creation</span>
+                        <span class="skill-tag">Process Improvement</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Marketing Manager -->
+            <div class="job-card">
+                <div class="job-title">Performance Marketing Manager</div>
+                <div class="job-level">Nivel: Senior</div>
+                
+                <div class="section">
+                    <div class="section-title">🎯 Responsabilidad Principal</div>
+                    <div class="section-content">Ejecución y optimización de campañas Google/Meta, gestión ROAS y growth hacking para maximizar performance publicitaria.</div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📋 Principales Funciones</div>
+                    <ul class="responsibilities-list">
+                        <li>Gestión campañas Google Ads (3+ por proyecto)</li>
+                        <li>Ejecución Social Ads (Facebook, Instagram, TikTok, LinkedIn)</li>
+                        <li>Análisis performance y optimización ROAS continua</li>
+                        <li>Media buying y allocation presupuestaria</li>
+                        <li>A/B testing de creativos y targeting</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">🛠️ Skills Requeridas</div>
+                    <div class="skills-tags">
+                        <span class="skill-tag">Google Ads</span>
+                        <span class="skill-tag">Meta Business</span>
+                        <span class="skill-tag">GA4/Analytics</span>
+                        <span class="skill-tag">ROAS Optimization</span>
+                        <span class="skill-tag">Real Estate</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Funnel Development Specialist -->
+            <div class="job-card">
+                <div class="job-title">Funnel Development Specialist</div>
+                <div class="job-level">Nivel: Senior</div>
+                
+                <div class="section">
+                    <div class="section-title">🎯 Responsabilidad Principal</div>
+                    <div class="section-content">Desarrollo arquitectura web 3-tier (Engage/Pulse/Select), optimización UX/conversión y mantenimiento del configurador propietario.</div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📋 Principales Funciones</div>
+                    <ul class="responsibilities-list">
+                        <li>Desarrollo Web Engage (landing + trailer + forms)</li>
+                        <li>Construcción Web Pulse (contenido LMP + configurador)</li>
+                        <li>Implementación Web Select (filtering + stock + payments)</li>
+                        <li>Optimización conversion rate y performance <2seg</li>
+                        <li>Mantenimiento configurador y Stripe integration</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">🛠️ Skills Requeridas</div>
+                    <div class="skills-tags">
+                        <span class="skill-tag">WordPress Advanced</span>
+                        <span class="skill-tag">UX/UI</span>
+                        <span class="skill-tag">Conversion Rate</span>
+                        <span class="skill-tag">Stripe/Payments</span>
+                        <span class="skill-tag">Performance Web</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Marketing Automation Engineer -->
+            <div class="job-card">
+                <div class="job-title">Marketing Automation Engineer</div>
+                <div class="job-level">Nivel: Senior</div>
+                
+                <div class="section">
+                    <div class="section-title">🎯 Responsabilidad Principal</div>
+                    <div class="section-content">Arquitectura completa del customer journey automatizado: workflows, nurturing, lead scoring y optimización de conversión.</div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📋 Principales Funciones</div>
+                    <ul class="responsibilities-list">
+                        <li>Desarrollo workflows complejos en Make</li>
+                        <li>Configuración nurturing email/WhatsApp por LMP</li>
+                        <li>Implementación lead scoring con IA</li>
+                        <li>Integración CRM y notification flows comerciales</li>
+                        <li>Customer journey mapping y behavioral triggers</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">🛠️ Skills Requeridas</div>
+                    <div class="skills-tags">
+                        <span class="skill-tag">Make/Zapier</span>
+                        <span class="skill-tag">Mailchimp</span>
+                        <span class="skill-tag">Customer.io</span>
+                        <span class="skill-tag">Lead Scoring</span>
+                        <span class="skill-tag">Journey Mapping</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
